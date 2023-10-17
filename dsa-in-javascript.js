@@ -140,3 +140,41 @@ var pivotIndex = function(nums) {
             return -1;
     } 
 };
+//Leetcode - 240. Search a 2D Matrix II
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function(matrix, target) {
+    var row = 0;
+    var col = matrix[0].length - 1;
+    while( row < matrix.length && col >= 0 ){
+        if( matrix[row][col] == target ){
+            return true;
+        }else if( matrix[row][col] > target ){
+            col--;
+        }else if( matrix[row][col] < target ){
+            row++;
+        }
+    }
+    return false;
+};
+//Leetcode - 769. Max Chunks To Make Sorted
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var maxChunksToSorted = function(arr) {
+    var maxVal = 0;
+    var Chunk = 0;
+    for(let i=0; i<arr.length; i++){
+        if( arr[i] > maxVal ){
+            maxVal = arr[i];
+        }
+        if( maxVal == i ){
+            Chunk++;
+        }
+    }
+    return Chunk;  
+};
