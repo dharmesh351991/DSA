@@ -82,8 +82,6 @@ var maxSubArray = function (nums) {
     return ans;
 };
 
-8802278833 - `Amit Sir number Bosscoder`
-
 /**
  * @param {number} n
  * @return {string[]}
