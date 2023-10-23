@@ -81,7 +81,6 @@ var maxSubArray = function (nums) {
     }
     return ans;
 };
-
 /**
  * @param {number} n
  * @return {string[]}
@@ -126,19 +125,19 @@ var search = function (nums, target) {
  * @param {number[]} nums
  * @return {number}
  */
-var pivotIndex = function(nums) {
+var pivotIndex = function (nums) {
     let lsum = 0;
-    let rsum = nums.reduce((accu, val) => accu + val ,0);
-    for(let i=0; i<nums.length; i++ ){
-        lsum += i == 0 ? 0 : nums[i-1] ;
+    let rsum = nums.reduce((accu, val) => accu + val, 0);
+    for (let i = 0; i < nums.length; i++) {
+        lsum += i == 0 ? 0 : nums[i - 1];
         rsum -= nums[i];
-        if( lsum == rsum ){
+        if (lsum == rsum) {
             return i;
-        }   
+        }
     }
-    if( lsum != rsum ){
-            return -1;
-    } 
+    if (lsum != rsum) {
+        return -1;
+    }
 };
 //Leetcode - 240. Search a 2D Matrix II
 /**
@@ -146,15 +145,15 @@ var pivotIndex = function(nums) {
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function(matrix, target) {
+var searchMatrix = function (matrix, target) {
     var row = 0;
     var col = matrix[0].length - 1;
-    while( row < matrix.length && col >= 0 ){
-        if( matrix[row][col] == target ){
+    while (row < matrix.length && col >= 0) {
+        if (matrix[row][col] == target) {
             return true;
-        }else if( matrix[row][col] > target ){
+        } else if (matrix[row][col] > target) {
             col--;
-        }else if( matrix[row][col] < target ){
+        } else if (matrix[row][col] < target) {
             row++;
         }
     }
@@ -165,16 +164,223 @@ var searchMatrix = function(matrix, target) {
  * @param {number[]} arr
  * @return {number}
  */
-var maxChunksToSorted = function(arr) {
+var maxChunksToSorted = function (arr) {
     var maxVal = 0;
     var Chunk = 0;
-    for(let i=0; i<arr.length; i++){
-        if( arr[i] > maxVal ){
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > maxVal) {
             maxVal = arr[i];
         }
-        if( maxVal == i ){
+        if (maxVal == i) {
             Chunk++;
         }
     }
-    return Chunk;  
+    return Chunk;
 };
+//1979. Find Greatest Common Divisor of Array
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findGCD = function (nums) {
+    var min = nums[0];
+    var max = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] < min) {
+            min = nums[i];
+        }
+        if (nums[i] > max) {
+            max = nums[i];
+        }
+    }
+    console.log('min', min);
+    console.log('max', max);
+    for (let i = min; i > 0; i--) {
+        if (min % i == 0 && max % i == 0) {
+            return i;
+        }
+    }
+};
+//136. Single Number
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+    var ans = 0;
+    for (let i = 0; i < nums.length; i++) {
+        ans = ans ^ nums[i];
+    }
+    return ans;
+};
+//231. Power of Two
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfTwo = function (n) {
+    if (n <= 0) {
+        return false;
+    }
+    if ((n & (n - 1)) == 0) {
+        return true
+    } else {
+        return false
+    }
+};
+//191. Number of 1 Bits
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+var hammingWeight = function (n) {
+    var ans = 0;
+    while (n != 0) {
+        n = n & (n - 1);
+        ans++
+    }
+    return ans;
+};
+//229. Majority Element II
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var majorityElement2 = function (nums) {
+    var n = nums.length;
+    var num1 = -1;
+    var count1 = 0;
+    var num2 = -1;
+    var count2 = 0;
+    for (let i = 0; i < n; i++) {
+        if (nums[i] == num1) {
+            count1++;
+        }
+        else if (nums[i] == num2) {
+            count2++;
+        }
+        else if (count1 == 0) {
+            num1 = nums[i];
+            count1++;
+        }
+        else if (count2 == 0) {
+            num2 = nums[i];
+            count2++;
+        } else {
+            count1--;
+            count2--;
+        }
+    }
+    console.log(`
+    num1 : ${num1}
+    count1: ${count1}
+    num2 : ${num2}
+    count2: ${count2}
+    `);
+    var count1 = 0;
+    var count2 = 0;
+    var returnArray = [];
+    for (let j = 0; j < n; j++) {
+        if (nums[j] == num1) {
+            count1++;
+        } else if (nums[j] == num2) {
+            count2++;
+        }
+    }
+    if (count1 > n / 3) {
+        returnArray.push(num1);
+    }
+    if (count2 > n / 3) {
+        returnArray.push(num2);
+    }
+    return returnArray;
+};
+//1979. Find Greatest Common Divisor of Array
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findGCD = function (nums) {
+    var min = nums[0];
+    var max = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] < min) {
+            min = nums[i];
+        }
+        if (nums[i] > max) {
+            max = nums[i];
+        }
+    }
+    console.log('min', min);
+    console.log('max', max);
+    for (let i = min; i > 0; i--) {
+        if (min % i == 0 && max % i == 0) {
+            return i;
+        }
+    }
+};
+//169. Majority Element
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function (nums) {
+    var n = nums.length;
+    var major = nums[0];
+    var count = 1;
+    for (let i = 1; i < n; i++) {
+        if (nums[i] == major) {
+            count++
+        } else {
+            count--
+        }
+        if (count == 0) {
+            major = nums[i];
+            count = 1;
+        }
+    }
+    return major;
+};
+//Decimal to Binary Conversion
+const convertDecimalToBinary = (n) => {
+    var binaryArr = [];
+    while (n > 0) {
+        binaryArr.push(n % 2);
+        n = parseInt(n / 2);
+    }
+    binaryArr = binaryArr.reverse();
+    return binaryArr;
+}
+console.log('Result', convertDecimalToBinary(19));
+//HW
+
+1. //var array = [4,12,45,21,76,3,1,32];  // 2nd max & min
+2. //1 1 0 0 1 1 0 0   => move all zeros to end in array
+3. //reverse array  1 2 3 4 5 6
+
+//Find 1st & 2nd min/max value from Array
+var array = [4, 12, 45, 21, 76, 3, 1, 32];
+var min = array[0];
+var max = 0;
+var min1 = 0;
+var max1 = 0;
+for (let i = 1; i < array.length; i++) {
+    if (array[i] < min) {
+        var tempMin = min;
+        min = array[i];
+        min1 = tempMin;
+    }
+    if (array[i] > max) {
+        var tempMax = max;
+        max = array[i];
+        max1 = tempMax;
+    }
+}
+console.log('min', min);
+console.log('min1', min1);
+console.log('max1', max1);
+console.log('max', max);
+
+
+https://www.amazon.in/Cracking-Coding-Interview-Programing-Questions/dp/0984782850
+https://www.amazon.in/Data-Structures-Algorithms-Made-Easy/dp/8192107558/ref=asc_df_8192107558/?tag=googleshopdes-21&linkCode=df0&hvadid=396987754974&hvpos=&hvnetw=g&hvrand=11363149714980090141&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9144012&hvtargid=pla-406475569335&psc=1&ext_vrnc=hi
