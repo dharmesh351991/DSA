@@ -558,3 +558,54 @@ var reverse = function(nums, start, end){
     }
 }
 ```
+
+### Leetcode 41. First Missing Positive
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var firstMissingPositive = function(nums) {
+    var n = nums.length;
+    for(let i=0; i<n; i++){
+        var element = nums[i];
+        var chair = element - 1;
+        if( element >=1 && element <=n ){
+            if( nums[chair] != element ){
+                var tempVal = element;
+                nums[i] = nums[chair];
+                nums[chair] = tempVal;
+                i--;
+            }
+        }
+    }
+    for(let j=0; j<n;j++){
+        if( nums[j] != j+1 ){
+            return j + 1;
+        }
+    }
+    return n + 1;
+}
+```
+
+### Leetcode 26. Remove Duplicates from Sorted Array
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    var length = nums.length;
+    var i = 0;
+    for(let j=1; j<length; j++){
+        
+        if( nums[j] != nums[i]  ){
+            i++;
+            nums[i] = nums[j];
+        }
+    }
+    return i+1;
+};
+```
