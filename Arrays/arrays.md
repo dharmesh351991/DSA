@@ -477,3 +477,30 @@ var findMin = function(nums) {
     return ans;
 };
 ```
+
+### Leetcode 152. Maximum Product Subarray
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function(nums) {
+    var prefix = 1;
+    var suffix = 1;
+    var answer = Number.MIN_SAFE_INTEGER;
+    var len = nums.length;
+    for( let i=0; i<len; i++ ){
+        if(prefix == 0){
+            prefix = 1;
+        }
+        if(suffix == 0){
+            suffix = 1;
+        }
+        prefix = prefix * nums[i]; 2,6
+        suffix = suffix * nums[len - i -1];
+        answer = Math.max( answer, Math.max(prefix, suffix) );
+    }
+    return answer;
+};
+```
