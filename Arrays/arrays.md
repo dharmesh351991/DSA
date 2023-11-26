@@ -529,3 +529,32 @@ var findMaxConsecutiveOnes = function(nums) {
     return max_count;
 };
 ```
+
+### Leetcode 189. Rotate Array
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    var len = nums.length;
+    if(len == 1 ){
+        return;
+    }
+    k %= len; //important condition
+    reverse(nums, 0, len-k-1 );
+    reverse(nums, len-k, len-1 );
+    reverse(nums, 0, len-1 );
+};
+var reverse = function(nums, start, end){
+    while( start <=end ){
+        var tempVal = nums[start];
+        nums[start] = nums[end];
+        nums[end] = tempVal;
+        start++;
+        end--;
+    }
+}
+```
