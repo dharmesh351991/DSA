@@ -609,3 +609,103 @@ var removeDuplicates = function(nums) {
     return i+1;
 };
 ```
+
+### Leetcode 268. Missing Number
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function(nums) {
+    var ans = 0;
+    var Max = nums.length;
+    for(let i=0; i<nums.length; i++){
+        ans ^= (nums[i]^i);
+    }
+    return ans^Max;
+};
+```
+### Leetcode 912. Sort an Array
+
+#### Complexity
+- Time complexity: O(nlogn)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+- Space complexity: O(n)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+#### Method 1
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArray = function(nums) {
+    var numsLen = nums.length;
+    if( numsLen < 2 ){
+        return nums;
+    }
+    var mid = Math.floor( numsLen  / 2 );
+    var leftArray = nums.slice(0, mid);
+    var rightArray = nums.slice(mid);
+    return merge( sortArray(leftArray), sortArray(rightArray) );
+};
+var merge = function(leftArray, rightArray){
+    var sortArray = [];
+    while( leftArray.length && rightArray.length ){
+        if( leftArray[0] <= rightArray[0] ){
+            sortArray.push(leftArray.shift());
+        }else{
+            sortArray.push(rightArray.shift());
+        }
+    }
+    return [...sortArray, ...leftArray, ...rightArray ];
+}
+```
+
+#### Method 2
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArray = function(nums) {
+    var low = 0;
+    var high = nums.length - 1;
+    return divide(nums, low, high);
+};
+var divide = function(nums, si, ei){
+    if( si>=ei ){
+        return nums;
+    }
+    var mid = Math.floor( (si+ei)/2 );
+    divide(nums, si, mid);
+    divide(nums, mid+1, ei);
+    return conquer(nums,si, mid, ei);
+}
+var conquer = function(nums, si, mid, ei){
+    var newArr = [];
+    var index1 = si;
+    var index2 = mid + 1;
+    var x= 0;
+    while( index1 <= mid && index2<=ei ){
+        if( nums[index1] <= nums[index2] ){
+            newArr[x++] = nums[index1++];
+        }else{
+            newArr[x++] = nums[index2++];
+        }
+    }
+    while( index1 <=mid ){
+        newArr[x++] = nums[index1++];
+    }
+    while( index2 <=mid ){
+        newArr[x++] = nums[index2++];
+    }
+    for(let i=0,j=si; i<newArr.length; i++,j++ ){
+        nums[j] = newArr[i];
+    }
+    return nums;
+}
+```
